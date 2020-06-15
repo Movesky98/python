@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+프로그램명 : 결제, 재고관리 기능
+작성자 : 권동천
+작성일 : 2020-06-12
+팀명 : 파이썬클라스 (4조)
+프로그램 설명: Buy.py에 맞춰 장고에 적용한 html 코드
+-->
+
+<div class="media">
+    <img class="mr-5 ml-5" src="{{ product.imageURL }}" alt="Generic placeholder image" style="width : 800px; height: 400px;">
+    <div class="media-body">
+      <h5 class="mt-0">브랜드 명 : {{ product.brand }}</h5>
+      <h4 class="mt-0">상품 이름 : {{ product.description }}</h5>
+      <h3 class="mt-5">상품 가격: {{ product.price }}</h5>
+      <div>
+        <br><br><br>
+        <h5 class="mt-5">상품 수량: {{ product.item_num }}개</h5>
+        <form action="{% url 'Buy2' product.pk %}" method="GET">
+          <input class="form-control mr-sm-2" style="width:70%;" type="text" placeholder="수량을 입력하세요" aria-label="수량을 입력하세요" name='buy_num' value="{{buy_num}}">
+          {% if status == 1 %}
+          <h5 style="color:red"><b>최대 수량 : {{ product.item_num }}개 에 맞춰 수량을 입력해주세요.</h5>
+          {% endif %}
+          {% if status == 3 %}
+          <h5 style="color:red"><b>알맞는 수량을 입력해주세요.</h5>
+          {% endif %}
+          {% if status == 2%}
+          <h5 style="color:red"><b>매진된 상품입니다.</h5>
+          {% endif %}
+      </div>
+      <br><br><br><br>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  구매하기
+</button>
+    {% if status == 4 %}
+    <h5 style="color:red"><b>로그인을 해야합니다.</h5>
+    {% endif %}
